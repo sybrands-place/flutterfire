@@ -502,6 +502,10 @@ enum HarmCategory {
       'HARM_CATEGORY_HATE_SPEECH' => HarmCategory.hateSpeech,
       'HARM_CATEGORY_SEXUALLY_EXPLICIT' => HarmCategory.sexuallyExplicit,
       'HARM_CATEGORY_DANGEROUS_CONTENT' => HarmCategory.dangerousContent,
+      'HARM_CATEGORY_IMAGE_HARASSMENT' => HarmCategory.harassment,
+      'HARM_CATEGORY_IMAGE_HATE' => HarmCategory.hateSpeech,
+      'HARM_CATEGORY_IMAGE_SEXUALLY_EXPLICIT' => HarmCategory.sexuallyExplicit,
+      'HARM_CATEGORY_IMAGE_DANGEROUS_CONTENT' => HarmCategory.dangerousContent,
       _ => throw FormatException('Unhandled HarmCategory format', jsonObject),
     };
   }
@@ -1314,7 +1318,7 @@ SafetyRating _parseSafetyRating(Object? jsonObject) {
     return SafetyRating(HarmCategory.unknown, HarmProbability.unknown);
   }
   return SafetyRating(HarmCategory._parseValue(jsonObject['category']),
-      HarmProbability._parseValue(jsonObject['probability']),
+      HarmProbability._parseValue(jsonObject['probability'] ?? 'UNSPECIFIED'),
       probabilityScore: jsonObject['probabilityScore'] as double?,
       isBlocked: jsonObject['blocked'] as bool?,
       severity: jsonObject['severity'] != null
