@@ -33,6 +33,8 @@ Matcher matchesPart(Part part) => switch (part) {
         isA<FunctionResponse>()
             .having((p) => p.name, 'name', name)
             .having((p) => p.response, 'args', response),
+      UnknownPart(data: final data) =>
+        isA<UnknownPart>().having((p) => p.data, 'data', data),
     };
 
 Matcher matchesContent(Content content) => isA<Content>()
